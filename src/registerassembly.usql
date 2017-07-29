@@ -1,0 +1,2 @@
+USE DATABASE master;
+CREATE ASSEMBLY IF NOT EXISTS [Parquet.Adla] FROM @"/Assemblies/Parquet.Adla.dll";

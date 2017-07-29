@@ -9,9 +9,13 @@ param(
 	[string] $BlobStorageAccountName = "",
 	[string] $BlobStorageAccountKey = "",
 	[string] $BlobStorageContainer = "",
-	[string] $BlobStoragePath = ""
-)
 
+	[string] $BlobStoragePath = "",
+	[string] $AzureDataLakeStoreName = "", 
+	[string] $AzureDataLakeAnalyticsName = "",
+	[string] $SubscriptionId = ""
+
+)
 
 if($ProjectDir -eq "")
 {
@@ -29,7 +33,12 @@ Write-Host "    configuration: $Configuration"
 Write-Host "    blob storage account name: $BlobStorageAccountName"
 Write-Host "    account Key: $BlobStorageAccountKey"
 Write-Host "    container: $BlobStorageContainer"
-Write-Host "    account Key: $BlobStoragePath"
+
+Write-Host "    path: $BlobStoragePath"
+Write-Host "    Data Lake Store Name: $AzureDataLakeStoreName"
+Write-Host "    Data Lake Analytics Name: $AzureDataLakeAnalyticsName"
+Write-Host "    Subscription Id: $SubscriptionId"
+
 
 $outDir = "$ProjectDir\bin\$Configuration-Merged"
 $targetDllPath = "$outDir\Parquet.Adla.dll"
@@ -82,5 +91,31 @@ function PublishToBlobStorage {
 	Set-AzureStorageBlobContent -File $targetDllPath -Container $BlobStorageContainer -Blob $blobName -Context $blobContext -Force
 }
 
+
+function UploadAssembliesToAdls() {
+	# Check to see whether we need to upload to blob
+	if([string]::IsNullOrEmpty($AzureDataLakeStoreName)) {
+        Write-Host "No data lake information specified. Not uploading to storage."
+		return
+	}
+
+	Login-AzureRmAccount
+	Set-AzureRMContext -SubscriptionId $SubscriptionId 
+    Write-Host "Setting subscription to $SubscriptionId"
+	# Copy the assembly to the ADLS
+	Import-AzureRmDataLakeStoreItem -AccountName $AzureDataLakeStoreName -Path $targetDllPath -Destination "/Assemblies/Parquet.Adla.dll"
+    Write-Host "Registering Parquet.Adla.dll assembly to $AzureDataLakeStoreName"
+	# Register the assembly once to avoid this in each script (master db)
+	$job = Submit-AzureRmDataLakeAnalyticsJob -Name "Create Assembly" -AccountName $AzureDataLakeAnalyticsName �ScriptPath "$PSScriptRoot\registerassembly.usql" -DegreeOfParallelism 1
+    Write-Host "Registering script with $AzureDataLakeAnalyticsName"
+	# Check to see make that the job has ended
+	While (($t = Get-AzureRmDataLakeAnalyticsJob -AccountName $AzureDataLakeAnalyticsName -JobId $job.JobId).State -ne "Ended") {
+Write-Host "Job status: "$t.State"..."
+Start-Sleep -seconds 10
+	}
+}
+
 MergeDll
 PublishToBlobStorage
+UploadAssembliesToAdls
+

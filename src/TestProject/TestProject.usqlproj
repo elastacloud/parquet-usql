@@ -21,8 +21,12 @@
     <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Script Include="extractor\extractor_alltypes.usql" />
     <Script Include="outputter\debug.usql" />
     <Script Include="outputter\single-dll.usql" />
+    <ScriptCode Include="extractor\extractor_alltypes.usql.cs">
+      <DependentUpon>extractor\extractor_alltypes.usql</DependentUpon>
+    </ScriptCode>
     <ScriptCode Include="outputter\debug.usql.cs">
       <DependentUpon>outputter\debug.usql</DependentUpon>
     </ScriptCode>
@@ -31,6 +35,7 @@
     </ScriptCode>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="extractor" />
     <Folder Include="outputter" />
   </ItemGroup>
   <Import Project="$(AppData)\Microsoft\DataLake\MsBuild\1.0\Usql.targets" />
