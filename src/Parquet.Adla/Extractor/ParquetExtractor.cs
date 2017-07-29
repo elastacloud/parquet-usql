@@ -7,6 +7,7 @@ using Parquet.Data;
 
 namespace ParquetDataLakeTools
 {
+   [SqlUserDefinedOutputter(AtomicFileProcessing = true)]
    public class ParquetExtractor : IExtractor
    {
       public override IEnumerable<IRow> Extract(IUnstructuredReader input, IUpdatableRow output)

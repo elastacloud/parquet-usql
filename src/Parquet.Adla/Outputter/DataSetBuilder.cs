@@ -14,6 +14,12 @@ namespace Parquet.Adla.Outputter
       private List<SchemaElement> _schema;
       private readonly List<Row> _rows = new List<Row>();
       private Stream _targetStream;
+      private bool _isWrite;
+
+      public DataSetBuilder()
+      {
+         _isWrite = true;
+      }
 
       public void Add(IRow row, Stream targetStream)
       {
@@ -26,6 +32,9 @@ namespace Parquet.Adla.Outputter
 
       public void Dispose()
       {
+         if (!_isWrite)
+            return;
+
          var ds = new DataSet(_schema.ToArray());
          ds.AddRange(_rows);
 
