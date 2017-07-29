@@ -1,15 +1,13 @@
-﻿USE DATABASE master;
-CREATE ASSEMBLY IF NOT EXISTS [Parquet.Adla] FROM @"/Assemblies/Parquet.Adla.dll";
+USE DATABASE master
 REFERENCE ASSEMBLY [Parquet.Adla];
 
-@a  = 
-    SELECT * FROM 
-        (VALUES
-            ("Contoso", 1500.0),
-            ("Woodgrove", 2700.0)
-        ) AS 
-              D( customer, amount );
+DECLARE @input_file string = @"alltypes.plain.parquet";
+DECLARE @output_file string = @"alltypes.plain.csv";
+
+@a =
+    EXTRACT bool_col bool, timestamp_col DateTime
+    FROM @input_file USING new Parquet.Adla.Extractors.ParquetExtractor();
+
 OUTPUT @a
-    TO "/pqnet/test1.parquet"
-    USING new Parquet.Adla.Outputter.ParquetOutputter();
-// http://sqlblog.com/blogs/jorg_klein/archive/2016/09/29/script-azure-data-lake-analytics-assembly-deployment-to-u-sql-catalog.aspx
+    TO @output_file
+    USING Outputters.Csv();

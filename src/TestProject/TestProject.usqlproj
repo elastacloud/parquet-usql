@@ -36,7 +36,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="extractor" />
+    <Folder Include="data" />
     <Folder Include="outputter" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="data\alltypes.plain.parquet">
+      <SubType>Content</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(AppData)\Microsoft\DataLake\MsBuild\1.0\Usql.targets" />
 </Project>

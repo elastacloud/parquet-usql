@@ -5,7 +5,8 @@ using Microsoft.Analytics.Interfaces;
 using Parquet;
 using Parquet.Data;
 
-namespace ParquetDataLakeTools
+
+namespace Parquet.Adla.Extractors
 {
    [SqlUserDefinedOutputter(AtomicFileProcessing = true)]
    public class ParquetExtractor : IExtractor
