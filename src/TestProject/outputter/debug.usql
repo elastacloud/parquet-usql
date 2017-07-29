@@ -1,0 +1,18 @@
+﻿REFERENCE ASSEMBLY [Snappy.Sharp];
+REFERENCE ASSEMBLY [Newtonsoft.Json];
+REFERENCE ASSEMBLY [System.ValueTuple];
+REFERENCE ASSEMBLY [apache-thrift-netcore];
+REFERENCE ASSEMBLY [NetBox];
+REFERENCE ASSEMBLY [Parquet];
+REFERENCE ASSEMBLY [Parquet.Adla];
+
+@a  = 
+    SELECT * FROM 
+        (VALUES
+            ("Contoso", 1500.0),
+            ("Woodgrove", 2700.0)
+        ) AS 
+              D( customer, amount );
+OUTPUT @a
+    TO "/test1.parquet"
+    USING new Parquet.Adla.Outputter.ParquetOutputter();

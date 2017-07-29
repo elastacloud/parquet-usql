@@ -8,5 +8,5 @@
         ) AS 
               D( customer, amount );
 OUTPUT @a
-    TO "/test1.parquet"
-    USING new Parquet.Adla.ParquetOutputter();
+    TO "/pqnet/test1.parquet"
+    USING new Parquet.Adla.Outputter.ParquetOutputter();

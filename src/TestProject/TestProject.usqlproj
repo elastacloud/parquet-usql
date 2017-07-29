@@ -21,10 +21,17 @@
     <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Script Include="Script.usql" />
-    <ScriptCode Include="Script.usql.cs">
-      <DependentUpon>Script.usql</DependentUpon>
+    <Script Include="outputter\debug.usql" />
+    <Script Include="outputter\single-dll.usql" />
+    <ScriptCode Include="outputter\debug.usql.cs">
+      <DependentUpon>outputter\debug.usql</DependentUpon>
     </ScriptCode>
+    <ScriptCode Include="outputter\single-dll.usql.cs">
+      <DependentUpon>outputter\single-dll.usql</DependentUpon>
+    </ScriptCode>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="outputter" />
   </ItemGroup>
   <Import Project="$(AppData)\Microsoft\DataLake\MsBuild\1.0\Usql.targets" />
 </Project>

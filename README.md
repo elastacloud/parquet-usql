@@ -1,4 +1,4 @@
-# Parquet-Usql [![Build status](https://ci.appveyor.com/api/projects/status/xbb8y5p5rqid8dc9/branch/master?svg=true)](https://ci.appveyor.com/project/sandy-may/parquet-usql/branch/master)
+# Apache Parquet for Azure Data Lake [![Build status](https://ci.appveyor.com/api/projects/status/e8inekwpv0femv8b/branch/master?svg=true)](https://ci.appveyor.com/project/aloneguid/parquet-usql/branch/master)
 
 ## Azure Data Lake Analytics custom extractor for parquet
 
