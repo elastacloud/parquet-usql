@@ -4,8 +4,8 @@
 #>
 
 param(
-  [string] $ProjectDir,
-  [string] $Configuration,
+	[string] $ProjectDir,
+  	[string] $Configuration,
 	[string] $BlobStorageAccountName = "",
 	[string] $BlobStorageAccountKey = "",
 	[string] $BlobStorageContainer = "",
@@ -17,6 +17,7 @@ param(
 	[string] $ApplicationKey = "",
 	[string] $SubscriptionId = ""
 )
+
 
 if($ProjectDir -eq "")
 {
@@ -35,14 +36,11 @@ Write-Host "    configuration: $Configuration"
 Write-Host "    blob storage account name: $BlobStorageAccountName"
 Write-Host "    account Key: $BlobStorageAccountKey"
 Write-Host "    container: $BlobStorageContainer"
-Write-Host "    path: $BlobStoragePath"
-
 Write-Host "    Data Lake Store Name: $AzureDataLakeStoreName"
 Write-Host "    Data Lake Analytics Name: $AzureDataLakeAnalyticsName"
 Write-Host "    Tenant Id: $TenantId"
 Write-Host "    Application Id: $ApplicationId"
 Write-Host "    Application Key: $ApplicationKey"
-
 Write-Host "    Subscription Id: $SubscriptionId"
 
 
@@ -53,17 +51,19 @@ $blobName = $BlobStoragePath
 function MergeDll{
     $srcDir = "$ProjectDir\bin\$Configuration"
     if(Test-Path -Path $outDir)
-    {        Remove-Item -Path $outDir -Recurse -Force
+    {        
+		Remove-Item -Path $outDir -Recurse -Force
     }
     $tmp = New-Item -Path $outDir -ItemType Directory
 
     $MergeAssemblies = @(
-        "Parquet*.dll",
-        "apache-thrift-netcore.dll",
+		"Parquet*.dll",        
+		"apache-thrift-netcore.dll",
         "NetBox.dll",
         "Newtonsoft.Json.dll",
         "Snappy.Sharp.dll",
-        "System.ValueTuple.dll"    )
+		"System.ValueTuple.dll"    
+		)
 
     $ilMergePaths = $MergeAssemblies | ForEach-Object { "$srcDir\$_" }
 

@@ -11,3 +11,4 @@ DECLARE @output_file string = @"alltypes.plain.csv";
 OUTPUT @a
     TO @output_file
     USING Outputters.Csv();
+
