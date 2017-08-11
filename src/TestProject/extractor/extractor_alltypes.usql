@@ -1,11 +1,18 @@
-USE DATABASE master
+USE DATABASE master;
+REFERENCE ASSEMBLY [NetBox];
+REFERENCE ASSEMBLY [Newtonsoft.Json];
+REFERENCE ASSEMBLY [Parquet];
+REFERENCE ASSEMBLY [Snappy.Sharp];
+REFERENCE ASSEMBLY [System.ValueTuple];
+REFERENCE ASSEMBLY [apache-thrift-netcore];
 REFERENCE ASSEMBLY [Parquet.Adla];
+
 
 DECLARE @input_file string = @"alltypes.plain.parquet";
 DECLARE @output_file string = @"alltypes.plain.csv";
 
 @a =
-    EXTRACT bool_col bool, timestamp_col DateTime
+    EXTRACT bool_col bool, id int
     FROM @input_file USING new Parquet.Adla.Extractors.ParquetExtractor();
 
 OUTPUT @a

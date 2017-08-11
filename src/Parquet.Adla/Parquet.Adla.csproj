@@ -36,13 +36,13 @@
       <HintPath>..\packages\apache-thrift-netcore.0.9.3.1\lib\net35\apache-thrift-netcore.dll</HintPath>
     </Reference>
     <Reference Include="NetBox, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8dea52f811e261ef, processorArchitecture=MSIL">
-      <HintPath>..\packages\NetBox.1.4.19\lib\net45\NetBox.dll</HintPath>
+      <HintPath>..\packages\NetBox.1.4.20\lib\net45\NetBox.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Parquet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Parquet.Net.1.0.0-beta-110\lib\net451\Parquet.dll</HintPath>
+      <HintPath>..\packages\Parquet.Net.1.1.0-alpha-124\lib\net451\Parquet.dll</HintPath>
     </Reference>
     <Reference Include="Snappy.Sharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Snappy.Sharp.1.0.0-b20170602007\lib\netstandard1.1\Snappy.Sharp.dll</HintPath>
@@ -75,6 +75,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

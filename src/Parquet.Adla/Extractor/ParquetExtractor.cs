@@ -11,24 +11,46 @@ namespace Parquet.Adla.Extractors
    [SqlUserDefinedOutputter(AtomicFileProcessing = true)]
    public class ParquetExtractor : IExtractor
    {
+      private DataSet _parquet;
+      private readonly Dictionary<string, int> _columnNameToIndex = new Dictionary<string, int>();
+
+      public ParquetExtractor()
+      {
+
+      }
+
       public override IEnumerable<IRow> Extract(IUnstructuredReader input, IUpdatableRow output)
       {
-         DataSet ds;
-         using (var reader = new ParquetReader(input.BaseStream))
-         {
-            ds = reader.Read();
-         }
+         Read(input);
 
-         
-         for (int i = 0; i < ds.RowCount; i++)
+         foreach(Row parquetRow in _parquet)
          {
-            for (int j = 0; j < ds.ColumnCount; j++)
+            foreach(IColumn outputColumn in output.Schema)
             {
-               output.Set(ds.Schema.ColumnNames[j], ds[i][j]);
+               int parquetIndex = _columnNameToIndex[outputColumn.Name];
+               object value = parquetRow[parquetIndex];
+               output.Set(outputColumn.Name, value);
             }
+
             yield return output.AsReadOnly();
          }
-         
+      }
+
+      private void Read(IUnstructuredReader reader)
+      {
+         //i'm not sure how to read this any other way as Parquet needs seekable stream
+         using (var ms = new MemoryStream())
+         {
+            reader.BaseStream.CopyTo(ms);
+            ms.Position = 0;
+            _parquet = ParquetReader.Read(ms, new ParquetOptions() { TreatByteArrayAsString = true });
+         }
+
+         _columnNameToIndex.Clear();
+         for(int i = 0; i < _parquet.Schema.Length; i++)
+         {
+            _columnNameToIndex[_parquet.Schema[i].Name] = i;
+         }
       }
    }
 }
