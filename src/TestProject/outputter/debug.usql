@@ -9,10 +9,12 @@ REFERENCE ASSEMBLY [Parquet.Adla];
 @a  = 
     SELECT * FROM 
         (VALUES
-            ("Contoso", 1500.0),
-            ("Woodgrove", 2700.0)
+            ("Contoso", 1500.0, DateTime.UtcNow),
+            ("Woodgrove", 2700.0, DateTime.UtcNow)
         ) AS 
-              D( customer, amount );
+              D( customer, amount, date );
 OUTPUT @a
     TO "/test1.parquet"
     USING new Parquet.Adla.Outputter.ParquetOutputter();
+
+
