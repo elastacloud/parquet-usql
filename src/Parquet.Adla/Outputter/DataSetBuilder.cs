@@ -11,45 +11,49 @@ namespace Parquet.Adla.Outputter
 {
    class DataSetBuilder : IDisposable
    {
+      private const int RowGroupSize = 1000;
       private List<SchemaElement> _schema;
-      private readonly List<Row> _rows = new List<Row>();
-      private Stream _targetStream;
-      private bool _isWrite;
+      private DataSet _ds;
+      private ParquetWriter _writer;
 
       public DataSetBuilder()
       {
-         _isWrite = true;
       }
 
       public void Add(IRow row, Stream targetStream)
       {
-         _targetStream = targetStream;
+         if (_writer == null) BuildWriter(row.Schema, targetStream);
 
-         if (_schema == null) BuildSchema(row);
+         if(_ds == null) _ds = new DataSet(_schema);
 
-         _rows.Add(ToRow(row));
+         _ds.Add(ToRow(row));
+
+         if (_ds.Count >= RowGroupSize)
+         {
+            FlushDataSet();
+         }
       }
 
-      public void Dispose()
+      private void FlushDataSet()
       {
-         if (!_isWrite)
-            return;
+         if (_ds == null) return;
 
-         var ds = new DataSet(_schema.ToArray());
-         ds.AddRange(_rows);
+         _writer.Write(_ds);
 
-         //parquet needs to be written in memory first as ADLA doesn't support seekable streams
+         _ds = null;
+      }
 
-         using (var ms = new MemoryStream())
+      private void BuildWriter(ISchema schema, Stream targetStream)
+      {
+         _schema = new List<SchemaElement>();
+
+         foreach (IColumn column in schema)
          {
-            using (var parquet = new ParquetWriter(ms))
-            {
-               parquet.Write(ds);
-            }
-
-            ms.Position = 0;
-            ms.CopyTo(_targetStream);
+            var se = new SchemaElement(column.Name, column.Type);
+            _schema.Add(se);
          }
+
+         _writer = new ParquetWriter(targetStream);
       }
 
       private void BuildSchema(IRow row)
@@ -75,6 +79,15 @@ namespace Parquet.Adla.Outputter
          }
 
          return new Row(pqRow);
+      }
+
+      public void Dispose()
+      {
+         if (_writer == null) return;
+
+         FlushDataSet();
+         _writer.Dispose();
+         _writer = null;
       }
    }
 }

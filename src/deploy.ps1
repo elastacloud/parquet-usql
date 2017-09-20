@@ -58,10 +58,8 @@ function MergeDll{
 
     $MergeAssemblies = @(
 		"Parquet*.dll",        
-		"apache-thrift-netcore.dll",
         "NetBox.dll",
         "Newtonsoft.Json.dll",
-        "Snappy.Sharp.dll",
 		"System.ValueTuple.dll"    
 		)
 

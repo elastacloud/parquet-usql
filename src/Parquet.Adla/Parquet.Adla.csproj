@@ -11,8 +11,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Parquet.Adla</RootNamespace>
     <AssemblyName>Parquet.Adla</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,13 +37,13 @@
       <HintPath>..\packages\apache-thrift-netcore.0.9.3.1\lib\net35\apache-thrift-netcore.dll</HintPath>
     </Reference>
     <Reference Include="NetBox, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8dea52f811e261ef, processorArchitecture=MSIL">
-      <HintPath>..\packages\NetBox.1.4.20\lib\net45\NetBox.dll</HintPath>
+      <HintPath>..\packages\NetBox.1.4.23\lib\net45\NetBox.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Parquet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Parquet.Net.1.2.0-alpha-133\lib\net451\Parquet.dll</HintPath>
+      <HintPath>..\packages\Parquet.Net.1.4.0-alpha-150\lib\net451\Parquet.dll</HintPath>
     </Reference>
     <Reference Include="Snappy.Sharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Snappy.Sharp.1.0.0-b20170602007\lib\netstandard1.1\Snappy.Sharp.dll</HintPath>
@@ -61,12 +62,16 @@
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.Analytics.Interfaces" />
     <Reference Include="Microsoft.Analytics.Types" />
+    <Reference Include="ThriftNetStandard, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Apache.Thrift.1.0.2\lib\net451\ThriftNetStandard.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extractor\ParquetExtractor.cs" />

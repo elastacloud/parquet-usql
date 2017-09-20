@@ -1,7 +1,5 @@
-﻿REFERENCE ASSEMBLY [Snappy.Sharp];
-REFERENCE ASSEMBLY [Newtonsoft.Json];
-REFERENCE ASSEMBLY [System.ValueTuple];
-REFERENCE ASSEMBLY [apache-thrift-netcore];
+﻿REFERENCE ASSEMBLY [Newtonsoft.Json];
+REFERENCE ASSEMBLY [ThriftNetStandard];
 REFERENCE ASSEMBLY [NetBox];
 REFERENCE ASSEMBLY [Parquet];
 REFERENCE ASSEMBLY [Parquet.Adla];
@@ -10,7 +8,10 @@ REFERENCE ASSEMBLY [Parquet.Adla];
     SELECT * FROM 
         (VALUES
             ("Contoso", 1500.0, DateTime.UtcNow),
+            ("Woodgrove", 2700.0, DateTime.UtcNow),
+            ("Contoso", 1500.0, DateTime.UtcNow),
             ("Woodgrove", 2700.0, DateTime.UtcNow)
+
         ) AS 
               D( customer, amount, date );
 OUTPUT @a
