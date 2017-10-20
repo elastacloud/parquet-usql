@@ -10,7 +10,6 @@
     <Name>TestProject</Name>
     <RootNamespace>TestProject</RootNamespace>
     <RuntimeVersion>default</RuntimeVersion>
-    <OutputStreamPath>C:\Users\ivang\AppData\Local\USQLDataRoot</OutputStreamPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
