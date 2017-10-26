@@ -1,7 +1,4 @@
-﻿REFERENCE ASSEMBLY [Newtonsoft.Json];
-REFERENCE ASSEMBLY [ThriftNetStandard];
-REFERENCE ASSEMBLY [NetBox];
-REFERENCE ASSEMBLY [Parquet];
+﻿REFERENCE ASSEMBLY [Parquet];
 REFERENCE ASSEMBLY [Parquet.Adla];
 
 @a  = 
