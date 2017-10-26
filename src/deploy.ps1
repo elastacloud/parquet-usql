@@ -57,10 +57,7 @@ function MergeDll{
     $tmp = New-Item -Path $outDir -ItemType Directory
 
     $MergeAssemblies = @(
-		"Parquet*.dll",        
-        "NetBox.dll",
-        "Newtonsoft.Json.dll",
-		"System.ValueTuple.dll"    
+		"Parquet*.dll"
 		)
 
     $ilMergePaths = $MergeAssemblies | ForEach-Object { "$srcDir\$_" }
