@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Parquet.Adla.Outputter
 {
-   class DataSetBuilder : IDisposable
+   internal sealed class DataSetBuilder : IDisposable
    {
       private const int RowGroupSize = 1000;
       private List<DataField> _schema;
