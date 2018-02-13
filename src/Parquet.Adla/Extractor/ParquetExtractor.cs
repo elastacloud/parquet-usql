@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using Microsoft.Analytics.Interfaces;
-using Parquet;
 using Parquet.Data;
 
 
@@ -13,11 +11,6 @@ namespace Parquet.Adla.Extractors
    {
       private DataSet _parquet;
       private readonly Dictionary<string, int> _columnNameToIndex = new Dictionary<string, int>();
-
-      public ParquetExtractor()
-      {
-
-      }
 
       public override IEnumerable<IRow> Extract(IUnstructuredReader input, IUpdatableRow output)
       {
