@@ -3,9 +3,6 @@ using Parquet.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Parquet.Adla.Outputter
 {
@@ -15,10 +12,6 @@ namespace Parquet.Adla.Outputter
       private List<DataField> _schema;
       private DataSet _ds;
       private ParquetWriter _writer;
-
-      public DataSetBuilder()
-      {
-      }
 
       public void Add(IRow row, Stream targetStream)
       {
@@ -54,17 +47,6 @@ namespace Parquet.Adla.Outputter
          }
 
          _writer = new ParquetWriter(targetStream);
-      }
-
-      private void BuildSchema(IRow row)
-      {
-         _schema = new List<DataField>();
-
-         foreach(IColumn column in row.Schema)
-         {
-            var se = new DataField(column.Name, column.Type);
-            _schema.Add(se);
-         }
       }
 
       private Row ToRow(IRow row)
