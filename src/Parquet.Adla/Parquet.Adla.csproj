@@ -53,14 +53,16 @@
     <Reference Include="Microsoft.Analytics.Types" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extractor\ParquetExtractor.cs" />
+    <Compile Include="Extractors\ParquetExtractor.cs" />
     <Compile Include="Outputter\DataSetBuilder.cs" />
     <Compile Include="Outputter\ParquetOutputter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
