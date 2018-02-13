@@ -33,8 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Parquet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Parquet.Net.1.5.0-alpha-177\lib\net451\Parquet.dll</HintPath>
+    <Reference Include="Parquet, Version=2.0.0.0, Culture=neutral, PublicKeyToken=de28deb604dd91c9, processorArchitecture=MSIL">
+      <HintPath>..\packages\Parquet.Net.2.1.2\lib\net451\Parquet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />

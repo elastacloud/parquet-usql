@@ -12,7 +12,7 @@ namespace Parquet.Adla.Outputter
    class DataSetBuilder : IDisposable
    {
       private const int RowGroupSize = 1000;
-      private List<SchemaElement> _schema;
+      private List<DataField> _schema;
       private DataSet _ds;
       private ParquetWriter _writer;
 
@@ -45,11 +45,11 @@ namespace Parquet.Adla.Outputter
 
       private void BuildWriter(ISchema schema, Stream targetStream)
       {
-         _schema = new List<SchemaElement>();
+         _schema = new List<DataField>();
 
          foreach (IColumn column in schema)
          {
-            var se = new SchemaElement(column.Name, column.Type);
+            var se = new DataField(column.Name, column.Type);
             _schema.Add(se);
          }
 
@@ -58,11 +58,11 @@ namespace Parquet.Adla.Outputter
 
       private void BuildSchema(IRow row)
       {
-         _schema = new List<SchemaElement>();
+         _schema = new List<DataField>();
 
          foreach(IColumn column in row.Schema)
          {
-            var se = new SchemaElement(column.Name, column.Type);
+            var se = new DataField(column.Name, column.Type);
             _schema.Add(se);
          }
       }
