@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.Analytics.Interfaces;
 using Parquet.Data;
@@ -22,7 +23,15 @@ namespace Parquet.Adla.Extractors
             {
                int parquetIndex = _columnNameToIndex[outputColumn.Name];
                object value = parquetRow[parquetIndex];
-               output.Set(outputColumn.Name, value);
+
+               if (value is DateTimeOffset offset)
+               {
+                  output.Set(outputColumn.Name, offset.DateTime);
+               }
+               else
+               {
+                  output.Set(outputColumn.Name, value);
+               }
             }
 
             yield return output.AsReadOnly();
